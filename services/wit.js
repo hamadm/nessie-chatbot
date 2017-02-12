@@ -106,14 +106,7 @@ var actions = {
 	['fetch-balance'](sessionId, context, cb) {
 		// Here we place an API call to Nessie
 		console.log('About to call getBalance')
-		 	getBalance()
-		 		.then(function (balance) {
-					console.log(balance)
-					context.balance = balance
-		 		})
-		 		.catch(function (err) {
-		 			console.log(err)
-		 		})
+		context.balance = getBalance()
 		
 		console.log(context)
 		cb(context)
