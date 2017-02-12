@@ -93,6 +93,21 @@ var actions = {
 
 		cb(context)
 	},
+	
+	['fetch-balance'](sessionId, context, cb) {
+		// Here we place an API call to Nessie
+		if (context.loc) {
+		 	getBalance(context.wit_account_type)
+		 		.then(function (balance) {
+					context.balance = balance || 'Could not reach nessie API, try again'
+		 		})
+		 		.catch(function (err) {
+		 			console.log(err)
+		 		})
+		}
+
+		cb(context)
+	},
 
 	['fetch-pics'](sessionId, context, cb) {
 		var wantedPics = allPics[context.cat || 'default']
@@ -129,6 +144,21 @@ var getWeather = function (location) {
 		    	var forecast = jsonData.query.results.channel.item.forecast[0].text
 		      console.log('WEATHER API SAYS....', jsonData.query.results.channel.item.forecast[0].text)
 		      return forecast
+		    }
+			})
+	})
+}
+
+// GET Balance FROM API
+var getBalance = function (account_type) {
+	return new Promise(function (resolve, reject) {
+		var url = 'http://api.reimaginebanking.com/accounts/58a0a71b1756fc834d9049a0?key=262f1eb36212b50ddcab4526dd823aa0'
+		request(url, function (error, response, body) {
+		    if (!error && response.statusCode == 200) {
+		    	var jsonData = JSON.parse(body)
+		    	var balance = jsonData.balance
+		      console.log('NESSIE API SAYS....', jsonData.balance)
+		      return balance
 		    }
 			})
 	})
