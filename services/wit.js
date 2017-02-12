@@ -43,8 +43,17 @@ var actions = {
 	},
 
 	merge(sessionId, context, entities, message, cb) {
+		// Reset the balance story
+		delete context.wit_account_type
+
+		// Retrive the location entity and store it in the context field
+		var wit_account_type = firstEntityValue(entities, 'wit_account_type')
+		if (wit_account_type) {
+			context.wit_account_type = wit_account_type
+		}
+		
 		// Reset the weather story
-		delete context.forecast
+		delete context.wit_account_type
 
 		// Retrive the location entity and store it in the context field
 		var loc = firstEntityValue(entities, 'location')
