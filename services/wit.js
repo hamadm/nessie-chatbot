@@ -108,13 +108,14 @@ var actions = {
 		console.log('About to call getBalance')
 		 	getBalance()
 		 		.then(function (balance) {
+					console.log(balance)
 					context.balance = balance
 		 		})
 		 		.catch(function (err) {
 		 			console.log(err)
 		 		})
 		
-
+		console.log(context)
 		cb(context)
 	},
 
