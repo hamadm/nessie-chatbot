@@ -106,8 +106,12 @@ var actions = {
 	['fetch-balance'](sessionId, context, cb) {
 		// Here we place an API call to Nessie
 		console.log('About to call getBalance')
-		context.balance = getBalance()
-		
+		getBalance().then(function(result) {
+			console.log(result);
+			context.balance = result;
+		}, function(err) {
+			console.log(err); 
+		});
 		console.log(context)
 		cb(context)
 	},
@@ -162,9 +166,9 @@ var getBalance = function () {
 		    	var jsonData = JSON.parse(body)
 		    	var balance = jsonData.balance
 		      console.log('NESSIE API SAYS....', jsonData.balance)
-		      return balance
+		      resolve(balance)
 		    } else {
-			    return 'Could not reach nessie API, try again'
+			    reject('Could not reach nessie API, try again')
 		    }
 			})
 	})
