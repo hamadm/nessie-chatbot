@@ -99,7 +99,7 @@ var actions = {
 		if (context.loc) {
 		 	getBalance(context.wit_account_type)
 		 		.then(function (balance) {
-					context.balance = balance || 'Could not reach nessie API, try again'
+					context.balance = balance
 		 		})
 		 		.catch(function (err) {
 		 			console.log(err)
@@ -159,6 +159,8 @@ var getBalance = function (account_type) {
 		    	var balance = jsonData.balance
 		      console.log('NESSIE API SAYS....', jsonData.balance)
 		      return balance
+		    } else {
+			    return 'Could not reach nessie API, try again'
 		    }
 			})
 	})
