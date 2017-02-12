@@ -105,7 +105,7 @@ var actions = {
 	
 	['fetch-balance'](sessionId, context, cb) {
 		// Here we place an API call to Nessie
-		
+		console.log('About to call getBalance')
 		 	getBalance()
 		 		.then(function (balance) {
 					context.balance = balance
@@ -160,6 +160,7 @@ var getWeather = function (location) {
 
 // GET Balance FROM API
 var getBalance = function () {
+	console.log('REACHED getBalance')
 	return new Promise(function (resolve, reject) {
 		var url = 'http://api.reimaginebanking.com/accounts/58a0a71b1756fc834d9049a0?key=262f1eb36212b50ddcab4526dd823aa0'
 		request(url, function (error, response, body) {
